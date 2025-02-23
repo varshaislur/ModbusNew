@@ -1,0 +1,32 @@
+{
+  "name": "modbus-electron-app",
+  "version": "1.0.0",
+  "main": "electron/main.js",
+  "scripts": {
+    "start": "electron .",
+    "build:frontend": "cd frontend && npm run build",
+    "build:electron": "electron-builder",
+    "package": "npm run build:frontend && npm run build:electron"
+  },
+  "build": {
+    "appId": "com.yourcompany.modbusapp",
+    "productName": "Modbus Reader",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "electron/",
+      "backend/",
+      "frontend/dist/",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "icon.ico"
+    }
+  },
+  "devDependencies": {
+    "electron": "^latest",
+    "electron-builder": "^latest"
+  }
+}
