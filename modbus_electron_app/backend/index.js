@@ -1,11 +1,12 @@
-const express = require("express");
-const cors = require("cors");
-const { SerialPort } = require("serialport"); // Import SerialPort
-const { connectModbus } = require("./modbusHandler");
+import express from "express";
+import cors from "cors";
+import { SerialPort } from "serialport";
+import { connectModbus } from "./modbusHandler.js";  // Ensure .js extension in ESM
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+
 
 // Get available COM ports
 app.get("/ports", async (req, res) => {

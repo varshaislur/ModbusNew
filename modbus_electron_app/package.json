@@ -2,6 +2,7 @@
   "name": "modbus-electron-app",
   "version": "1.0.0",
   "main": "electron/main.js",
+  "type": "module",
   "scripts": {
     "start": "electron .",
     "build:frontend": "cd frontend && npm run build",
@@ -26,7 +27,15 @@
     }
   },
   "devDependencies": {
-    "electron": "^latest",
-    "electron-builder": "^latest"
+    "electron": "^34.2.0",
+    "electron-builder": "^25.1.8"
+  },
+  "dependencies": {
+    "axios": "^1.7.9",
+    "cors": "^2.8.5",
+    "electron-is-dev": "^3.0.1",
+    "express": "^4.21.2",
+    "modbus-serial": "^8.0.19",
+    "serialport": "^13.0.0"
   }
 }

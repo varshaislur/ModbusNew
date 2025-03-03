@@ -9,12 +9,22 @@ function App() {
     // Fetch available COM ports when the component loads
     useEffect(() => {
         async function fetchPorts() {
-            const availablePorts = await getAvailablePorts();
-            setPorts(availablePorts);
-            if (availablePorts.length > 0) {
-                setSelectedPort(availablePorts[0]);
+            try {
+                const availablePorts = await getAvailablePorts();
+                console.log("🔌 Available Ports:", availablePorts);
+
+                if (Array.isArray(availablePorts) && availablePorts.length > 0) {
+                    setPorts([...availablePorts]); // Ensure a new array reference
+                    setSelectedPort(availablePorts[0]); // Set default port
+                } else {
+                    setPorts([]); // No ports found
+                }
+            } catch (error) {
+                console.error("⚠️ Error fetching ports:", error);
+                setPorts([]);
             }
         }
+
         fetchPorts();
     }, []);
 
@@ -24,11 +34,18 @@ function App() {
             return;
         }
 
-        const result = await connectToModbus(selectedPort);
-        if (result.success) {
-            setRegisterData(result.data);
-        } else {
-            alert(result.error || "Failed to fetch Modbus data");
+        try {
+            const result = await connectToModbus(selectedPort);
+            console.log("📡 Modbus Response:", result);
+
+            if (result.success) {
+                setRegisterData(result.data);
+            } else {
+                alert(result.error || "Failed to fetch Modbus data");
+            }
+        } catch (error) {
+            console.error("⚠️ Connection Error:", error);
+            alert("An error occurred while connecting to Modbus.");
         }
     };
 
